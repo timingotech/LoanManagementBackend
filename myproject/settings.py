@@ -27,26 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_ALL_HEADERS = True
 
-CORS_ALLOW_CREDENTIALS = True
-
-CSRF_TRUSTED_ORIGINS = [
-        "*"
-]
-
-CSRF_COOKIE_SECURE = True  # For secure connections (HTTPS)
-CSRF_COOKIE_HTTPONLY = True  # Restrict cookie access to JavaScript
-CSRF_COOKIE_SAMESITE = 'Lax'  # Adjust as needed (Lax, Strict, None)
-
-CSRF_FAILURE_VIEW = 'api.views.custom_csrf_failure_view'
-
-CORS_ORIGIN_ALLOW_ALL = True    
-
-CORS_ALLOWED_ORIGINS = [
-    "*"
-]
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',
@@ -55,7 +36,7 @@ CORS_ALLOW_METHODS = [
     'DELETE',
     'OPTIONS'
 ]
-WSGI_APPLICATION = 'backend.wsgi.application'
+WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # Application definition
 
