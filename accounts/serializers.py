@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from .models import User, Transaction
 
 # User Registration Serializer
 class RegisterSerializer(serializers.ModelSerializer):
@@ -34,3 +35,17 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ['date', 'amount', 'description']
+
+class UserSerializer(serializers.ModelSerializer):
+    transactions = TransactionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['name', 'avatar', 'balance', 'loan_amount', 'loan_status', 'num_transactions', 'transactions']
+        
