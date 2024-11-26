@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 import json
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
+import datetime
+from rest_framework.permissions import IsAuthenticated
 
 # Register View
 class RegisterView(APIView):
@@ -57,13 +59,22 @@ def login_view(request):
         
 
 class DashboardView(APIView):
-    def get(self, request, user_id):
-        try:
-            user = User.objects.get(id=user_id)
-            serializer = UserSerializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    permission_classes = [IsAuthenticated]  # Only allow authenticated users
+
+    def get(self, request):
+        user_profile = request.user.profile  # Get the user's profile
+        data = {
+            'username': request.user.username,
+            'balance': user_profile.balance,
+            'loan_amount': user_profile.loan_amount,
+            'loan_status': user_profile.loan_status,
+            'avatar': user_profile.avatar.url if user_profile.avatar else None,
+            'transactions': [
+                {"date": "2024-11-20", "amount": 500.00, "description": "Groceries"},
+                {"date": "2024-11-18", "amount": 100.00, "description": "Transportation"},
+            ],
+        }
+        return Response(data)
         
 class LoanApplicationView(APIView):
     def post(self, request):
