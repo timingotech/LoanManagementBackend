@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-from .models import User, Transaction
+from .models import User, Transaction, LoanApplication
 
 # User Registration Serializer
 class RegisterSerializer(serializers.ModelSerializer):
@@ -49,3 +49,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['name', 'avatar', 'balance', 'loan_amount', 'loan_status', 'num_transactions', 'transactions']
         
+
+class LoanApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LoanApplication
+        fields = '__all__'

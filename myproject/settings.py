@@ -25,17 +25,7 @@ SECRET_KEY = 'django-insecure-u8(jgo8!95#ud($%^s6xetp)ldr3gb6qaybt%_*nhfa!@oelp(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
 
-
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # Application definition
@@ -49,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'accounts',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -56,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -80,6 +73,32 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+# settings.py
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5500',  # Frontend on local machine
+]
+
+ALLOWED_HOSTS = ['*']
+
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+    "x-requested-with",
+]
+
 
 
 # Database
