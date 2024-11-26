@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import User, Transaction, LoanApplication
+from .models import User, Transaction, LoanApplication, UserProfile
 
-@admin.register(User)
+@admin.register(UserProfile)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'balance', 'loan_amount', 'loan_status', 'num_transactions')
-    search_fields = ('name',)
+    list_display = ('user', 'balance', 'loan_amount', 'loan_status', 'num_transactions')
+    search_fields = ('user',)
     list_filter = ('loan_status',)
 
 @admin.register(Transaction)
